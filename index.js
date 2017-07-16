@@ -2,20 +2,16 @@
  * Created by 31641 on 2017-7-16.
  */
 const Koa = require('koa');
-const Io = require('socket.io')
-const app = new Koa;
-const io = new Io;
+const IO = require('koa-socket-2');
 
-app.use(async function (ctx, next)
-{
-    let now = new Date();
-    console.log(now.toTimeString());
-    await next();
-});
+const app = new Koa();
+const io = new IO();
 
-app.use(async function (ctx, next)
+io.attach(app);
+
+io.on('connection',async function (ctx, next)
 {
-    ctx.body = "hello world";
+    console.log(ctx.body);
     await next();
 });
 

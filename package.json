@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Soulike/bankQueuingSystem#readme",
   "dependencies": {
     "koa": "^2.3.0",
+    "koa-socket-2": "^1.0.13",
     "socket.io": "^2.0.3"
   }
 }

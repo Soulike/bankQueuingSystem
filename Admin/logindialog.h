@@ -2,6 +2,8 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 namespace Ui {
 class LoginDialog;
@@ -18,6 +20,8 @@ public:
 
 private slots:
 	void on_cancel_clicked();
+
+	void on_login_clicked();
 
 private:
 	Ui::LoginDialog *ui;

@@ -2,6 +2,7 @@
 #define TELLERDIALOG_H
 
 #include <QDialog>
+#include<QtNetwork>
 
 namespace Ui {
 class TellerDialog;

@@ -2,6 +2,7 @@
 #define MANAGERDIALOG_H
 
 #include <QDialog>
+#include<QtNetwork>
 
 namespace Ui {
 class ManagerDialog;

@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+QT += network
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Admin
@@ -27,12 +29,12 @@ SOURCES += \
         main.cpp \
         logindialog.cpp \
     tellerdialog.cpp \
-    managerdialog.cpp
+    managerdialog.cpp \
 
 HEADERS += \
         logindialog.h \
     tellerdialog.h \
-    managerdialog.h
+    managerdialog.h \
 
 FORMS += \
         logindialog.ui \

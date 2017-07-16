@@ -28,3 +28,8 @@ void LoginDialog::on_cancel_clicked()
 {
 	close();
 }
+
+void LoginDialog::on_login_clicked()
+{
+
+}
