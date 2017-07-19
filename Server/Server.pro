@@ -1,16 +1,16 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-07-16T15:04:46
+# Project created by QtCreator 2017-07-17T15:11:51
 #
 #-------------------------------------------------
 
 QT       += core gui
-
-QT += network
+QT+=sql widgets
+QT+=network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Admin
+TARGET = Server
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -27,19 +27,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        logindialog.cpp \
-    tellerdialog.cpp \
-    managerdialog.cpp \
+    server.cpp
 
 HEADERS += \
-        logindialog.h \
-    tellerdialog.h \
-    managerdialog.h \
-    setting.h
+    server.h
 
 FORMS += \
-        logindialog.ui \
-    tellerdialog.ui \
-    managerdialog.ui
-
-RC_ICONS = "../images/queue.ico"
+    server.ui

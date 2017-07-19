@@ -82,7 +82,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="clientLabel">
+         <widget class="QLabel" name="clientTopLabel">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -98,7 +98,7 @@
            </font>
           </property>
           <property name="text">
-           <string>客户您好，您前面有6个人排队</string>
+           <string>客户您好，您前面有0个人排队</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -127,7 +127,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="clientBottomTopLabel">
+         <widget class="QLabel" name="clientBottomLabel">
           <property name="font">
            <font>
             <family>Noto Sans CJK SC Regular</family>
@@ -137,7 +137,7 @@
            </font>
           </property>
           <property name="text">
-           <string>取号成功，您的号码是127号</string>
+           <string>取号成功，您的号码是0号</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -194,7 +194,7 @@
            </font>
           </property>
           <property name="text">
-           <string>V.I.P.客户您好，您前面有2个人排队</string>
+           <string>V.I.P.客户您好，您前面有0个人排队</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -233,7 +233,7 @@
            </font>
           </property>
           <property name="text">
-           <string>取号成功，您的号码是3号</string>
+           <string>取号成功，您的号码是0号</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -288,19 +288,22 @@
      <item>
       <widget class="QTextEdit" name="queueInfo">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="font">
         <font>
          <pointsize>14</pointsize>
         </font>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK SC Regular'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;请1号客户到1号柜台办理业务。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
