@@ -27,11 +27,9 @@ TellerDialog::~TellerDialog()
 void TellerDialog::on_call_clicked()
 {
 	tellerSocket = new QTcpSocket(this);
-	tellerSocket->abort();
-	tellerSocket->connectToHost(QHostAddress("127.0.0.1"),TELLERPORT);
+	tellerSocket->connectToHost(QHostAddress(SERVERADDRESS),TELLERPORT);
 	connect(tellerSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
 	connect(tellerSocket,SIGNAL(connected()),this,SLOT(sendData()));
-	tellerSocket->deleteLater();
 }
 
 void TellerDialog::sendData()
@@ -72,8 +70,7 @@ void TellerDialog::closeEvent(QCloseEvent * event)
 void TellerDialog::offline()
 {
 	offlineSocket = new QTcpSocket(this);
-	offlineSocket->abort();
-	offlineSocket->connectToHost(QHostAddress("127.0.0.1"),OFFLINEPORT);
+	offlineSocket->connectToHost(QHostAddress(SERVERADDRESS),OFFLINEPORT);
 	connect(offlineSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
 	connect(offlineSocket,SIGNAL(connected()),this,SLOT(sendOffline()));
 	offlineSocket->deleteLater();

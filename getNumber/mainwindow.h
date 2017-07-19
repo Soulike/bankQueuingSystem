@@ -42,6 +42,7 @@ private:
 	const int OFFLINEPORT = 3001;
 	const int GETNUMBERPORT = 3002;
 	const int TELLERPORT = 3003;
+	const QString SERVERADDRESS = "127.0.0.1";
 
 	Ui::MainWindow *ui;
 

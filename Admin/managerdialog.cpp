@@ -99,8 +99,7 @@ void ManagerDialog::updateData()
 void ManagerDialog::on_refreshButton_clicked()
 {
 	updateSocket = new QTcpSocket(this);
-	updateSocket->abort();
-	updateSocket->connectToHost(QHostAddress("127.0.0.1"),LOGINPORT);
+	updateSocket->connectToHost(QHostAddress(SERVERADDRESS),LOGINPORT);
 	connect(updateSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
 	connect(updateSocket,SIGNAL(connected()),this,SLOT(sendData()));
 }
@@ -108,8 +107,7 @@ void ManagerDialog::on_refreshButton_clicked()
 void ManagerDialog::offline()
 {
 	offlineSocket = new QTcpSocket(this);
-	offlineSocket->abort();
-	offlineSocket->connectToHost(QHostAddress("127.0.0.1"),OFFLINEPORT);
+	offlineSocket->connectToHost(QHostAddress(SERVERADDRESS),OFFLINEPORT);
 	connect(offlineSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
 	connect(offlineSocket,SIGNAL(connected()),this,SLOT(sendOffline()));
 }

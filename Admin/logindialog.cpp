@@ -59,11 +59,9 @@ void LoginDialog::on_login_clicked()
 			return;
 		}
 	loginSocket = new QTcpSocket(this);
-	loginSocket->abort();
-	loginSocket->connectToHost(QHostAddress("127.0.0.1"),LOGINPORT);
+	loginSocket->connectToHost(QHostAddress(SERVERADDRESS),LOGINPORT);
 	connect(loginSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
 	connect(loginSocket,SIGNAL(connected()),this,SLOT(sendLoginData()));
-	loginSocket->deleteLater();
 }
 
 void LoginDialog::sendLoginData()

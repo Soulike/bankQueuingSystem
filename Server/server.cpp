@@ -26,25 +26,25 @@ Server::Server(QWidget *parent) :
 	if(!loginServer->listen(QHostAddress::LocalHost,LOGINPORT))
 		appendLog(loginServer->errorString());
 	else
-		appendLog("登陆验证服务端成功开启并监听3000端口。");
+		appendLog("登陆验证服务端成功开启并监听"+QString::number(LOGINPORT)+"端口。");
 
 	offlineServer = new QTcpServer(this);
 	if(!offlineServer->listen(QHostAddress::LocalHost,OFFLINEPORT))
 		appendLog(offlineServer->errorString());
 	else
-		appendLog("登录状态服务端成功开启并监听3001端口。");
+		appendLog("登录状态服务端成功开启并监听"+QString::number(OFFLINEPORT)+"端口。");
 
 	getNumberServer = new QTcpServer(this);
 	if(!getNumberServer->listen(QHostAddress::LocalHost,GETNUMBERPORT))
 		appendLog(getNumberServer->errorString());
 	else
-		appendLog("取号服务端成功开启并监听3002端口。");
+		appendLog("取号服务端成功开启并监听"+QString::number(GETNUMBERPORT)+"端口。");
 
 	tellerServer = new QTcpServer(this);
 	if(!tellerServer->listen(QHostAddress::LocalHost,TELLERPORT))
 		appendLog(tellerServer->errorString());
 	else
-		appendLog("柜员叫号服务端成功开启并监听3003端口。");
+		appendLog("柜员叫号服务端成功开启并监听"+QString::number(TELLERPORT)+"端口。");
 
 	connect(loginServer,&QTcpServer::newConnection,this,&Server::loginConnection);
 	connect(offlineServer,&QTcpServer::newConnection,this,&Server::offlineConnection);
@@ -218,6 +218,11 @@ void Server::closeEvent(QCloseEvent * event)
 	resetState();//服务器关闭则令数据库设置所有用户下线
 }
 
+void Server::showError(QAbstractSocket::SocketError error)
+{
+	appendLog("网络异常");
+}
+
 void Server::offlineConnection()
 {
 	offlineSocket = offlineServer->nextPendingConnection();
@@ -260,14 +265,15 @@ void Server::getNumberRead()
 	if(JSONObj.value("type") == CLIENT)
 	{
 		ResJSONObj.insert("type",CLIENT);
-		ResJSONObj.insert("waiting",clientUnprocessed+VIPUnprocessed);
+		ResJSONObj.insert("clientWaiting",clientUnprocessed+VIPUnprocessed);
 		ResJSONObj.insert("number",serialNum);
 		clientWaitingQueue.push_back(serialNum);
 	}
 	else
 	{
 		ResJSONObj.insert("type",VIP);
-		ResJSONObj.insert("waiting",VIPUnprocessed);
+		ResJSONObj.insert("clientWaiting",clientUnprocessed+VIPUnprocessed);
+		ResJSONObj.insert("VIPWaiting",VIPUnprocessed);
 		ResJSONObj.insert("number",serialNum);
 		VIPWaitingQueue.push_back(serialNum);
 	}
@@ -286,6 +292,7 @@ void Server::tellerRead()
 	QJsonDocument JSONDoc = QJsonDocument::fromBinaryData(message);
 	QJsonObject JSONObj = JSONDoc.object();
 	QString account = JSONObj.value("account").toString();
+	db.exec("UPDATE users SET online = true WHERE account="+account);
 	QJsonObject ResJSONObj;
 	int next = 0;
 	if(!VIPWaitingQueue.isEmpty())//有VIP客户优先处理VIP客户
@@ -295,7 +302,7 @@ void Server::tellerRead()
 		next = VIPWaitingQueue.front();
 		VIPWaitingQueue.pop_front();
 		ResJSONObj.insert("number",next);
-		appendLog("工号 "+account+"叫号，返回 "+QString::number(next)+" 号客户。");
+		appendLog("工号 "+account+" 叫号，返回 "+QString::number(next)+" 号V.I.P.客户。");
 		db.exec("UPDATE users SET vipprocessed = vipprocessed+1,online=true WHERE account="+account);
 		appendLog("数据库操作：UPDATE users SET vipprocessed = vipprocessed+1,online=true WHERE account="+account);
 		updateQueueInfo(account,next);
@@ -307,7 +314,7 @@ void Server::tellerRead()
 		next = clientWaitingQueue.front();
 		clientWaitingQueue.pop_front();
 		ResJSONObj.insert("number",next);
-		appendLog("工号 "+account+"叫号，返回 "+QString::number(next)+" 号客户。");
+		appendLog("工号 "+account+" 叫号，返回 "+QString::number(next)+" 号客户。");
 		db.exec("UPDATE users SET clientprocessed = clientprocessed+1,online=true WHERE account="+account);
 		appendLog("数据库操作：UPDATE users SET clientprocessed = clientprocessed+1,online=true WHERE account="+account);
 		updateQueueInfo(account,next);

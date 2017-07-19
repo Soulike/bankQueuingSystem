@@ -34,3 +34,5 @@ HEADERS += \
 
 FORMS += \
     server.ui
+
+RC_ICONS = "../images/queue.ico"

@@ -89,6 +89,8 @@ private slots:
 
 	void tellerConnection();
 	void tellerRead();
+
+	void showError(QAbstractSocket::SocketError error);
 };
 
 #endif // LOGINSERVER_H

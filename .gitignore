@@ -57,3 +57,4 @@ CMakeLists.txt.user*
 # Executables
 *.out
 *.app
+.idea/

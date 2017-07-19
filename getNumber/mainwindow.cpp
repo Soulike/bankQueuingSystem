@@ -33,7 +33,7 @@ void MainWindow::on_clientGetNumberButton_clicked()
 {
 	buttonType = CLIENT;
 	getNumberSocket = new QTcpSocket(this);
-	getNumberSocket->connectToHost(QHostAddress("127.0.0.1"),3002);
+	getNumberSocket->connectToHost(QHostAddress(SERVERADDRESS),GETNUMBERPORT);
 	connect(getNumberSocket,SIGNAL(connected()),this,SLOT(sendButtonRequest()));
 	connect(getNumberSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
 	connect(getNumberSocket,SIGNAL(readyRead()),this,SLOT(showResponse()));
@@ -54,12 +54,13 @@ void MainWindow::showResponse()
 	{
 		if(JSONObj.value("type").toBool() == CLIENT)
 		{
-			ui->clientTopLabel->setText("客户您好，您前面有"+QString::number(JSONObj.value("waiting").toDouble())+"人排队。");
+			ui->clientTopLabel->setText("客户您好，您前面有"+QString::number(JSONObj.value("clientWaiting").toDouble())+"人排队。");
 			ui->clientBottomLabel->setText("取号成功，您的号码是"+QString::number(JSONObj.value("number").toDouble())+"号。");
 		}
 		else
 		{
-			ui->VIPTopLabel->setText("V.I.P.客户您好，您前面有"+QString::number(JSONObj.value("waiting").toDouble())+"人排队。");
+			ui->clientTopLabel->setText("客户您好，您前面有"+QString::number(JSONObj.value("clientWaiting").toDouble())+"人排队。");
+			ui->VIPTopLabel->setText("V.I.P.客户您好，您前面有"+QString::number(JSONObj.value("VIPWaiting").toDouble())+"人排队。");
 			ui->VIPBottomLabel->setText("取号成功，您的号码是"+QString::number(JSONObj.value("number").toDouble())+"号。");
 		}
 	}
@@ -77,7 +78,7 @@ void MainWindow::on_VIPGetNumberButton_clicked()
 {
 	buttonType = VIP;
 	getNumberSocket = new QTcpSocket(this);
-	getNumberSocket->connectToHost(QHostAddress("127.0.0.1"),3002);
+	getNumberSocket->connectToHost(QHostAddress(SERVERADDRESS),GETNUMBERPORT);
 	connect(getNumberSocket,SIGNAL(connected()),this,SLOT(sendButtonRequest()));
 	connect(getNumberSocket,SIGNAL(readyRead()),this,SLOT(showResponse()));
 	connect(getNumberSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
