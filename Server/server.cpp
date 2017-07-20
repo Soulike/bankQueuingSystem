@@ -218,11 +218,6 @@ void Server::closeEvent(QCloseEvent * event)
 	resetState();//服务器关闭则令数据库设置所有用户下线
 }
 
-void Server::showError(QAbstractSocket::SocketError error)
-{
-	appendLog("网络异常");
-}
-
 void Server::offlineConnection()
 {
 	offlineSocket = offlineServer->nextPendingConnection();

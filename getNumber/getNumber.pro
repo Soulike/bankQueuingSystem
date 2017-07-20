@@ -27,12 +27,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+    getNumberWindow.cpp
 
 HEADERS += \
-        mainwindow.h
+    getNumberWindow.h
 
 FORMS += \
-        mainwindow.ui
+    getNumberWindow.ui
 
 RC_ICONS = "../images/queue.ico"

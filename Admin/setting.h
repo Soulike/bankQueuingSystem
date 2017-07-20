@@ -1,5 +1,6 @@
 #ifndef SETTING_H
 #define SETTING_H
+#include<QString>
 
 /*服务端端口号设置*/
 const int LOGINPORT = 3000;

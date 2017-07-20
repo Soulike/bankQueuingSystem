@@ -54,7 +54,7 @@ void ManagerDialog::sendData()
 
 void ManagerDialog::showError(QAbstractSocket::SocketError error)
 {
-	setText("连接错误。");
+	setText("网络错误。");
 }
 
 void ManagerDialog::receiveData()

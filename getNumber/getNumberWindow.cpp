@@ -1,14 +1,15 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "getNumberWindow.h"
+#include "ui_getnumberwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+
+getNumberWindow::getNumberWindow(QWidget *parent) :
 	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+	ui(new Ui::getNumberWindow)
 {
 	ui->setupUi(this);
 	setWindowTitle("银行排队系统");
 	setStyleSheet(
-				"MainWindow{background-color:rgb(225,225,225);}"
+				"#getNumberWindow{background-color:rgb(225,225,225);}"
 				"#left,#right{border: 1px solid gray;}"
 				"#leftTop,#leftBottom{border: 1px solid gray;padding:25px 50px;}"
 				"#queueInfo{padding:10px 5px;border:1px solid gray;border-radius:10px;background-color:rgb(240,240,240);color:black;}"
@@ -24,12 +25,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	queueInfo.clear();
 }
 
-MainWindow::~MainWindow()
+getNumberWindow::~getNumberWindow()
 {
 	delete ui;
 }
 
-void MainWindow::on_clientGetNumberButton_clicked()
+void getNumberWindow::on_clientGetNumberButton_clicked()
 {
 	buttonType = CLIENT;
 	getNumberSocket = new QTcpSocket(this);
@@ -39,14 +40,14 @@ void MainWindow::on_clientGetNumberButton_clicked()
 	connect(getNumberSocket,SIGNAL(readyRead()),this,SLOT(showResponse()));
 }
 
-void MainWindow::sendButtonRequest()
+void getNumberWindow::sendButtonRequest()
 {
 	QJsonObject JSONObj;//创建JSON对象
 	JSONObj.insert("type",buttonType);
 	getNumberSocket->write(QJsonDocument(JSONObj).toBinaryData());
 }
 
-void MainWindow::showResponse()
+void getNumberWindow::showResponse()
 {
 	QByteArray res = getNumberSocket->readAll();
 	QJsonObject JSONObj = QJsonDocument::fromBinaryData(res).object();//拿到JSON文档
@@ -74,7 +75,7 @@ void MainWindow::showResponse()
 	}
 }
 
-void MainWindow::on_VIPGetNumberButton_clicked()
+void getNumberWindow::on_VIPGetNumberButton_clicked()
 {
 	buttonType = VIP;
 	getNumberSocket = new QTcpSocket(this);
@@ -84,7 +85,7 @@ void MainWindow::on_VIPGetNumberButton_clicked()
 	connect(getNumberSocket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(showError(QAbstractSocket::SocketError)));
 }
 
-void MainWindow::showError(QAbstractSocket::SocketError error)
+void getNumberWindow::showError(QAbstractSocket::SocketError error)
 {
 	ui->clientBottomLabel->setText("网络错误");
 	ui->VIPBottomLabel->setText("网络错误");

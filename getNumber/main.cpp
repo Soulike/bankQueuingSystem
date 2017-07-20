@@ -1,11 +1,10 @@
-#include "mainwindow.h"
+#include "getNumberWindow.h"
 #include <QApplication>
-#include <QtNetwork>
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	MainWindow w;
+	getNumberWindow w;
 	w.show();
 	return a.exec();
 }

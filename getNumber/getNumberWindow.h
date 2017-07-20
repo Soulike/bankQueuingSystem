@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef GETNUMBER_H
+#define GETNUMBER_H
 
 #include<QMainWindow>
 #include<QTcpSocket>
@@ -10,16 +10,16 @@
 #include<QLabel>
 
 namespace Ui {
-class MainWindow;
+class getNumberWindow;
 }
 
-class MainWindow : public QMainWindow
+class getNumberWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	explicit MainWindow(QWidget *parent = 0);
-	~MainWindow();
+	explicit getNumberWindow(QWidget *parent = 0);
+	~getNumberWindow();
 
 private slots:
 	void on_clientGetNumberButton_clicked();
@@ -44,11 +44,11 @@ private:
 	const int TELLERPORT = 3003;
 	const QString SERVERADDRESS = "127.0.0.1";
 
-	Ui::MainWindow *ui;
+	Ui::getNumberWindow *ui;
 
 	QTcpSocket * getNumberSocket;//通信使用的socket
 	bool buttonType;//点击按钮的类型
 	QString queueInfo;//右侧排队信息显示的内容
 };
 
-#endif // MAINWINDOW_H
+#endif // GETNUMBER_H
